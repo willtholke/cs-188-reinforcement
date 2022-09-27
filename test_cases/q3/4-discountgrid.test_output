@@ -1,18 +1,18 @@
-Q-Values at iteration 3 for action 'exit' are NOT correct.   Student solution:
-	q_values_k_3_action_exit: """
-            0.0000      illegal       0.0000      illegal      illegal
-            0.0000      illegal   __________      illegal      illegal
-            0.0000      illegal       0.0000      illegal      illegal
-            0.0000      illegal   __________   __________      illegal
-            0.0000      illegal      illegal      illegal      illegal
+Q-Values at iteration 9 for action 'north' are NOT correct.   Student solution:
+	q_values_k_9_action_north: """
+           illegal       0.0000      illegal       0.0000       0.0000
+           illegal       0.0000   __________       0.0000       0.0000
+           illegal       0.0000      illegal       0.0000       0.0000
+           illegal       0.0000   __________   __________       0.0000
+           illegal       0.0000       0.0000       0.0000       0.0000
 """
 
    Correct solution:
-	q_values_k_3_action_exit: """
-            0.0000      illegal       0.0000      illegal      illegal
-            0.0000      illegal   __________      illegal      illegal
-            0.0000      illegal       0.0000      illegal      illegal
-            0.0000      illegal   __________   __________      illegal
-           -1.0000      illegal      illegal      illegal      illegal
+	q_values_k_9_action_north: """
+           illegal       0.0000      illegal       0.0000       0.0000
+           illegal       0.0000   __________       0.0000       0.0000
+           illegal       0.0000      illegal       0.0000       0.0000
+           illegal      -0.0900   __________   __________       0.0000
+           illegal       0.0000       0.0000       0.0000       0.0000
 """
 

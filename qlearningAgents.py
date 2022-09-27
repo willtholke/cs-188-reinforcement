@@ -81,7 +81,7 @@ class QLearningAgent(ReinforcementAgent):
           are no legal actions, which is the case at the terminal state,
           you should return None.
         """
-        return self.computeBestQAndAction(state)[1]
+        return self.computeBestQAndAction(state)[1] 
 
     def getAction(self, state):
         """
@@ -110,11 +110,16 @@ class QLearningAgent(ReinforcementAgent):
           it will be called on your behalf
         """
         q = self.getQValue(state, action)
-        base = (1 - self.alpha) * q + (self.alpha * reward)
+        moving_average = (1 - self.alpha) * q # does not include alpha * sample yet
+        test = -float('inf')
+        if nextState != "TERMINAL_STATE":
+          test = self.computeValueFromQValues(nextState)
         if nextState:
-          next_q = self.getQValue(nextState, action)
-          base += (self.alpha * self.discount * next_q)
-        return base
+          q_next = self.getQValue(nextState, action)
+          q_next = max(q_next, test)
+          q_sample = reward + self.discount * q_next # include alpha * sample because we can gather the sample
+          moving_average += self.alpha * q_sample
+        self.Q[(state, action)] = moving_average
 
     def getPolicy(self, state):
         return self.computeActionFromQValues(state)
