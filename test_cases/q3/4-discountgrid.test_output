@@ -1,0 +1,18 @@
+Q-Values at iteration 3 for action 'exit' are NOT correct.   Student solution:
+	q_values_k_3_action_exit: """
+            0.0000      illegal       0.0000      illegal      illegal
+            0.0000      illegal   __________      illegal      illegal
+            0.0000      illegal       0.0000      illegal      illegal
+            0.0000      illegal   __________   __________      illegal
+            0.0000      illegal      illegal      illegal      illegal
+"""
+
+   Correct solution:
+	q_values_k_3_action_exit: """
+            0.0000      illegal       0.0000      illegal      illegal
+            0.0000      illegal   __________      illegal      illegal
+            0.0000      illegal       0.0000      illegal      illegal
+            0.0000      illegal   __________   __________      illegal
+           -1.0000      illegal      illegal      illegal      illegal
+"""
+
