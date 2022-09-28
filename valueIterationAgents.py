@@ -115,5 +115,8 @@ class ValueIterationAgent(ValueEstimationAgent):
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
 
+    def getAction(self, state):
+        return self.computeActionFromValues(state)
+      
     def getQValue(self, state, action):
         return self.computeQValueFromValues(state, action)

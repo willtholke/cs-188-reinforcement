@@ -58,8 +58,8 @@ class QLearningAgent(ReinforcementAgent):
         """
         max_q, best_action = -float('inf'), None
         actions = self.getLegalActions(state)
-        if not actions:
-          return 0.0
+        # if not actions:
+        #   return 0.0
         for action in actions:
           q = self.getQValue(state, action)
           if q > max_q:
@@ -73,7 +73,7 @@ class QLearningAgent(ReinforcementAgent):
           there are no legal actions, which is the case at the
           terminal state, you should return a value of 0.0.
         """
-        return self.computeBestQAndAction(state)[0]
+        return 0.0 if not self.getLegalActions(state) else self.computeBestQAndAction(state)[0] 
 
     def computeActionFromQValues(self, state):
         """
@@ -166,7 +166,7 @@ class ApproximateQAgent(PacmanQAgent):
     def __init__(self, extractor='IdentityExtractor', **args):
         self.featExtractor = util.lookup(extractor, globals())()
         PacmanQAgent.__init__(self, **args)
-        self.weights = util.Counter()
+        self.weights = util.Counter() # featureVector containing pairs of features/values
 
     def getWeights(self):
         return self.weights
@@ -176,15 +176,29 @@ class ApproximateQAgent(PacmanQAgent):
           Should return Q(state,action) = w * featureVector
           where * is the dotProduct operator
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        # features = f_i(state, action)
+        features = self.featExtractor.getFeatures(state, action)
+        q = 0
+        for state_action_pair in features:
+          w = features[state_action_pair]
+          q += w * self.weights[state_action_pair]
+        return q
 
     def update(self, state, action, nextState, reward: float):
         """
            Should update your weights based on transition
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        # Setup
+        q = self.getQValue(state, action)
+  
+        # Calculate difference and features
+        difference = reward + self.discount * self.getValue(nextState) - q
+        features = self.featExtractor.getFeatures(state, action)
+      
+        # Update weight vectors
+        for state_action_pair in features:
+          self.weights[state_action_pair] = self.weights[state_action_pair] + self.alpha * difference * features[state_action_pair]
+
 
     def final(self, state):
         """Called at the end of each game."""
